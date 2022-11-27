@@ -67,7 +67,7 @@ namespace ProjetoUnip.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CPF = table.Column<long>(type: "bigint", nullable: false),
                     Id_Endereco = table.Column<int>(type: "int", nullable: false),
                     Id_Telefone = table.Column<int>(type: "int", nullable: false)
                 },

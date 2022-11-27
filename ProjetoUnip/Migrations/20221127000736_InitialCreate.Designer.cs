@@ -11,7 +11,7 @@ using ProjetoUnip.Models;
 namespace ProjetoUnip.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221126055859_InitialCreate")]
+    [Migration("20221127000736_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,9 +76,8 @@ namespace ProjetoUnip.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("CPF")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<long>("CPF")
+                        .HasColumnType("bigint")
                         .HasColumnName("CPF");
 
                     b.Property<int>("Id_Endereco")

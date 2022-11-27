@@ -74,9 +74,8 @@ namespace ProjetoUnip.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("CPF")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<long>("CPF")
+                        .HasColumnType("bigint")
                         .HasColumnName("CPF");
 
                     b.Property<int>("Id_Endereco")

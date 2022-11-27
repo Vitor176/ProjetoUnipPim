@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<Contexto>
-    (options => options.UseSqlServer("Data Source=localhost,1433;Initial Catalog=ProjetoUnipTeste;Persist Security Info=True;User ID=sa;Password=yourStrong(!)Password"));
+    (options => options.UseSqlServer("Data Source=localhost,1433;Initial Catalog=Unip;Persist Security Info=True;User ID=sa;Password=yourStrong(!)Password"));
 
 var app = builder.Build();
 

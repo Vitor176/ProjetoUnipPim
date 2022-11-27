@@ -33,22 +33,11 @@ namespace ProjetoUnip.Controllers
             }
 
             var pessoa = await _context.Pessoa
+                .Include(p => p.Endereco)
+                .Include(p => p.Telefone)
+                .Include(p => p.Telefone.TipoTelefone)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var Endereco = await _context.Endereco.FirstOrDefaultAsync(x => x.Id == pessoa.Id_Endereco);
-            if (Endereco != null)
-            {
-                pessoa.Endereco = Endereco;
-            }
-            var Telefone = await _context.Telefone.FirstOrDefaultAsync(x => x.Id == pessoa.Id_Telefone);
-            if (Telefone != null)
-            {
-                pessoa.Telefone = Telefone;
-            }
-            var TipoTelefone = await _context.TipoTelefone.FirstOrDefaultAsync(x => x.Id == pessoa.Telefone.Id_FKTipoTelefone);
-            if(TipoTelefone != null)
-            {
-                pessoa.Telefone.TipoTelefone = TipoTelefone;
-            }
+
             if (pessoa == null)
             {
                 return NotFound();
@@ -68,7 +57,7 @@ namespace ProjetoUnip.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,CPF,Endereco, Telefone")] Pessoa pessoa)
+        public async Task<IActionResult> Create([Bind("Id,Nome,CPF,Endereco,Telefone")] Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -86,8 +75,12 @@ namespace ProjetoUnip.Controllers
             {
                 return NotFound();
             }
+            var pessoa = await _context.Pessoa
+                .Include(p => p.Endereco)
+                .Include(p => p.Telefone)
+                .Include(p => p.Telefone.TipoTelefone)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            var pessoa = await _context.Pessoa.FindAsync(id);
             if (pessoa == null)
             {
                 return NotFound();
@@ -100,7 +93,7 @@ namespace ProjetoUnip.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,CPF")] Pessoa pessoa)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,CPF,Endereco,Telefone")] Pessoa pessoa)
         {
             if (id != pessoa.Id)
             {

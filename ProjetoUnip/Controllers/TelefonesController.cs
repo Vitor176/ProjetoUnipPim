@@ -31,11 +31,10 @@ namespace ProjetoUnip.Controllers
             {
                 return NotFound();
             }
-
             var telefone = await _context.Telefone
+                .Include(p => p.TipoTelefone)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var TipoTelefone = await _context.TipoTelefone.FirstOrDefaultAsync(x => x.Id == telefone.Id_FKTipoTelefone);
-            telefone.TipoTelefone = TipoTelefone;
+
             if (telefone == null)
             {
                 return NotFound();

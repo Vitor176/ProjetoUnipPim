@@ -16,7 +16,7 @@ namespace ProjetoUnip.Models
 
         [Column("CPF")]
         [Display(Name = "CPF")]
-        public string CPF { get; set; }
+        public long CPF { get; set; }
 
         [Column("Endereco")]
         [Display(Name = "Endereco")]
