@@ -1,16 +1,16 @@
 ﻿@model ProjetoUnip.Models.Pessoa
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Altere";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
 <h4>Pessoa</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Altere">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -76,7 +76,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar para Lista</a>
 </div>
 
 @section Scripts {

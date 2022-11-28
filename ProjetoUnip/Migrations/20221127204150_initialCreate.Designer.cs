@@ -11,14 +11,14 @@ using ProjetoUnip.Models;
 namespace ProjetoUnip.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221127000736_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221127204150_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);

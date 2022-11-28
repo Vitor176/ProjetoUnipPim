@@ -21,13 +21,19 @@ namespace ProjetoUnip.Controllers
         // GET: Pessoas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pessoa.ToListAsync());
+            var pessoa = await _context.Pessoa
+                .Include(p => p.Endereco)
+                .Include(p => p.Telefone)
+                .Include(p => p.Telefone.TipoTelefone)
+                .ToListAsync();
+
+            return View(pessoa);
         }
 
         // GET: Pessoas/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Consulte(long? cpf)
         {
-            if (id == null || _context.Pessoa == null)
+            if (_context.Pessoa == null)
             {
                 return NotFound();
             }
@@ -36,7 +42,7 @@ namespace ProjetoUnip.Controllers
                 .Include(p => p.Endereco)
                 .Include(p => p.Telefone)
                 .Include(p => p.Telefone.TipoTelefone)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CPF == cpf);
 
             if (pessoa == null)
             {
@@ -47,17 +53,17 @@ namespace ProjetoUnip.Controllers
         }
 
         // GET: Pessoas/Create
-        public IActionResult Create()
+        // Direcionamento para view/Criate
+        public IActionResult Insira()
         {
             return View();
         }
 
         // POST: Pessoas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Responsavel que faz create no banco
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,CPF,Endereco,Telefone")] Pessoa pessoa)
+        public async Task<IActionResult> Insira([Bind("Id,Nome,CPF,Endereco,Telefone")] Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -69,9 +75,10 @@ namespace ProjetoUnip.Controllers
         }
 
         // GET: Pessoas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // Direcionamento para view/Edit
+        public async Task<IActionResult> Altere(int? id)
         {
-            if (id == null || _context.Pessoa == null)
+            if (_context.Pessoa == null)
             {
                 return NotFound();
             }
@@ -89,11 +96,10 @@ namespace ProjetoUnip.Controllers
         }
 
         // POST: Pessoas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Responsavel que faz update no banco
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,CPF,Endereco,Telefone")] Pessoa pessoa)
+        public async Task<IActionResult> Altere(int id, [Bind("Id,Nome,CPF,Endereco,Telefone")] Pessoa pessoa)
         {
             if (id != pessoa.Id)
             {
@@ -124,7 +130,8 @@ namespace ProjetoUnip.Controllers
         }
 
         // GET: Pessoas/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // Direcionamento para view/Edit
+        public async Task<IActionResult> Exclua(int? id)
         {
             if (id == null || _context.Pessoa == null)
             {
@@ -142,9 +149,10 @@ namespace ProjetoUnip.Controllers
         }
 
         // POST: Pessoas/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // Responsavel que faz delete no banco
+        [HttpPost, ActionName("Exclua")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> ExcluaConfirmed(int id)
         {
             if (_context.Pessoa == null)
             {
